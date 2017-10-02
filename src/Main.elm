@@ -127,6 +127,7 @@ articleItem item =
         ]
 
 
+elmBlock : String -> Html Msg
 elmBlock elmCode =
     div []
         [ useTheme gitHub
@@ -137,6 +138,7 @@ elmBlock elmCode =
         ]
 
 
+jsBlock : String -> Html Msg
 jsBlock jsCode =
     div []
         [ useTheme gitHub
@@ -157,19 +159,6 @@ type alias Article =
     }
 
 
-data =
-    [ Article "article 1"
-        "author 1"
-        "descr"
-        [ "Maybe", "Result" ]
-        "# 1"
-        "js"
-    , Article "article 2" "author 2" "descr" [ "Maybe", "Result" ] "elm" "js"
-    , Article "article 3" "author 3" "descr" [ "Maybe", "Result" ] "elm" "js"
-    , Article "article 4" "author 4" "descr" [ "Maybe", "Result" ] "elm" "js"
-    ]
-
-
 emptyArticle =
     Article "empty" "_" "_" [ "_" ] "_" "_"
 
@@ -180,7 +169,7 @@ emptyArticle =
 
 getArticles : Cmd Msg
 getArticles =
-    Http.get "./data/articles.json" decodeArticleList
+    Http.get "./articles.json" decodeArticleList
         |> Http.send GotArticles
 
 
