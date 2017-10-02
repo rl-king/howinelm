@@ -5,9 +5,9 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (onClick)
 import Http exposing (Error, get, send)
 import Json.Decode as D exposing (..)
-import Markdown exposing (..)
 import Navigation exposing (Location)
 import Route exposing (..)
+import SyntaxHighlight exposing (elm, gitHub, javascript, toBlockHtml, useTheme)
 
 
 main : Program Never Model Msg
@@ -114,16 +114,36 @@ articleItem item =
         , div [ class "code-blocks" ]
             [ div [ class "code-block" ]
                 [ h5 [] [ text "JavaScript" ]
-                , Markdown.toHtml [] item.js
+                , jsBlock item.js
                 ]
             , div [ class "code-block" ]
                 [ h5 [] [ text "Elm" ]
-                , Markdown.toHtml [] item.elm
+                , elmBlock item.elm
                 ]
             ]
         , footer []
             [ ul [] (List.map (\x -> li [] [ text x ]) item.types)
             ]
+        ]
+
+
+elmBlock elmCode =
+    div []
+        [ useTheme gitHub
+        , elm elmCode
+            |> Result.map (toBlockHtml (Just 1))
+            |> Result.withDefault
+                (pre [] [ code [] [ text elmCode ] ])
+        ]
+
+
+jsBlock jsCode =
+    div []
+        [ useTheme gitHub
+        , javascript jsCode
+            |> Result.map (toBlockHtml (Just 1))
+            |> Result.withDefault
+                (pre [] [ code [] [ text jsCode ] ])
         ]
 
 

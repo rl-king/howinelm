@@ -7,7 +7,7 @@
             "destructuring",
             "records"
         ],
-        "elm": "Elm code",
-        "js": "JS Code"
+        "elm": "add x y = (+) x y",
+        "js": "const add = (x, y) => x + y;"
     }
 ]
