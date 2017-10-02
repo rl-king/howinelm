@@ -1,7 +1,7 @@
 {
     "version": "1.0.0",
-    "summary": "Elm Starter",
-    "repository": "https://gitlab.com/rlkdev/elmstarter.git",
+    "summary": "How to in elm",
+    "repository": "https://github.com/rl-king/howtoinelm.git",
     "license": "MIT",
     "source-directories": [
         "src"

@@ -1,12 +1,12 @@
 {
-    "name": "elmstarter",
-    "description": "elmstarter",
+    "name": "howtoinelm",
+    "description": "howtoinelm",
     "version": "0.0.1",
     "license": "MIT",
     "author": "Ruben Lie King",
     "repository": {
         "type": "git",
-        "url": "https://gitlab.com/rlkdev/elmstarter"
+        "url": "https://github.com/rl-king/howtoinelm"
     },
     "scripts": {
         "start": "webpack-dev-server --hot --inline",
