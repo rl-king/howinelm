@@ -108,7 +108,6 @@ articleItem item =
             [ h2
                 [ onClick (NewUrl ("/article/" ++ titleToSlug item.title)) ]
                 [ text item.title ]
-            , small [] [ text item.author ]
             , p [] [ text item.description ]
             ]
         , div [ class "code-blocks" ]
@@ -123,6 +122,7 @@ articleItem item =
             ]
         , footer []
             [ ul [] (List.map (\x -> li [] [ text x ]) item.types)
+            , small [] [ text ("by: " ++ item.author) ]
             ]
         ]
 
