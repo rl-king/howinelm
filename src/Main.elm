@@ -77,7 +77,7 @@ view model =
     in
     main_ []
         [ header [ class "main-header" ]
-            [ h1 [] [ text "How in elm" ]
+            [ h1 [] [ text "How in Elm" ]
             , h5 [] [ text "Elm equivalent of Javascript code" ]
             ]
         , selectedView

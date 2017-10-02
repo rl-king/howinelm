@@ -1,13 +1,13 @@
 [
     {
-        "title": "Destructuring Records/Objects",
+        "title": "Getting the first value from an Array",
         "author": "rlking",
-        "description": "Getting the value from a record (elm) of object (js) in the argument declaration",
+        "description": "Incomplete dummy data",
         "tags": [
-            "destructuring",
-            "records"
+            "Lists",
+            "Arrays"
         ],
-        "elm": "add x y = (+) x y",
-        "js": "const add = (x, y) => x + y;"
+        "elm": "./test/test.elm",
+        "js": "function firstValue(arr) { return arr[0] };"
     }
 ]

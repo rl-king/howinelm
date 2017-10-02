@@ -6,10 +6,13 @@ article {
     background-color: $wht2;
     margin: 0 2rem 3rem;
 
+    header {
+        border-bottom: 1px solid $wht4;
+    }
+
     header, footer {
         padding: 1.5rem 1.5rem .5rem;
         margin-bottom: 1.5rem;
-        border-bottom: 1px solid $wht4;
     }
 
     ul {
@@ -27,18 +30,28 @@ article {
 }
 
 .code-blocks {
+
     @include breakpoint($small) {
         display: flex;
     }
 }
 
 .code-block {
+
+    &:first-child {
+        margin-bottom: 1rem;
+    }
+
     h5 {
         margin-left: 1.5rem;
     }
 
     @include breakpoint($small) {
         width: 50%;
+
+        &:first-child {
+            margin-bottom: 0;
+        }
     }
 }
 
