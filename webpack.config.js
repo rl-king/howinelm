@@ -130,9 +130,8 @@ if (isProd === true) {
                 canPrint: true
             }),
             new CopyWebpackPlugin([
-                { from: 'src', to: 'images/' }
+                { from: 'src/data', to: 'data' }
             ]),
-
             new webpack.optimize.UglifyJsPlugin({
                 minimize: true,
                 mangle: true,
