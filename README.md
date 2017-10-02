@@ -1,7 +1,6 @@
 # 🏗 WIP
 
 ## TODO
-- Come up with API for articles
 - Some ways of searching articles
 - Fix linking to articles
 
@@ -10,6 +9,10 @@
 npm start
 ```
 
+## Generate Json from data:
+```
+node generatejson.js
+```
 ## Build:
 ```
 npm run build
