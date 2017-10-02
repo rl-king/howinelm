@@ -1,3 +1,55 @@
 /*------------------------------------*\
     PREVIEW
 \*------------------------------------*/
+
+article {
+    background-color: $wht2;
+    margin: 0 2rem 3rem;
+
+    header, footer {
+        padding: 1.5rem;
+    }
+
+    ul {
+        display: flex;
+    }
+
+    li {
+        margin-right: 0.5rem;
+        background-color: $green;
+        color: $wht1;
+        padding: 0.1rem 0.5rem;
+        border-radius: 2px;
+    }
+}
+
+.code-blocks {
+    @include breakpoint($small) {
+        display: flex;
+    }
+}
+
+.code-block {
+
+    h5 {
+        margin-left: 1.5rem;
+    }
+
+    &:first-child {
+        pre {
+            border-right: 1px solid $gr3;
+        }
+    }
+
+    @include breakpoint($small) {
+        width: 50%;
+    }
+}
+
+pre {
+    font-size: ms();
+    background-color: $wht4;
+    padding: 1.5rem;
+    margin-bottom: 0;
+    word-wrap: break-word;
+}

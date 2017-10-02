@@ -66,7 +66,7 @@ view model =
                     articleItem (selectedArticle model.articles title)
     in
     main_ []
-        [ header [] [ h1 [] [ text "How to in elm" ] ]
+        [ header [ class "main-header" ] [ h1 [] [ text "How to in elm" ] ]
         , selectedView
         ]
 
@@ -91,15 +91,25 @@ articleList model =
 articleItem : Item -> Html Msg
 articleItem item =
     article []
-        [ h2
-            [ onClick (NewUrl ("/article/" ++ titleToSlug item.title))
+        [ header []
+            [ h2
+                [ onClick (NewUrl ("/article/" ++ titleToSlug item.title)) ]
+                [ text item.title ]
+            , small [] [ text item.author ]
+            , p [] [ text item.description ]
             ]
-            [ text item.title ]
-        , small [] [ text item.author ]
-        , ul [] (List.map (\x -> li [] [ text x ]) item.types)
         , div [ class "code-blocks" ]
-            [ pre [] [ text item.js ]
-            , pre [] [ text item.elm ]
+            [ div [ class "code-block" ]
+                [ h5 [] [ text "JavaScript" ]
+                , pre [] [ text item.js ]
+                ]
+            , div [ class "code-block" ]
+                [ h5 [] [ text "Elm" ]
+                , pre [] [ text item.elm ]
+                ]
+            ]
+        , footer []
+            [ ul [] (List.map (\x -> li [] [ text x ]) item.types)
             ]
         ]
 
@@ -115,7 +125,20 @@ type alias Item =
 
 
 data =
-    [ Item "article 1" "author 1" "descr" [ "Maybe", "Result" ] "elm" "js"
+    [ Item "article 1" "author 1" "descr" [ "Maybe", "Result" ] """myTuple = ("A", "B", "C")
+myNestedTuple = ("A", "B", "C", ("X", "Y", "Z"))
+
+let
+  (a,b,c) = myTuple
+in
+  a ++ b ++ c
+-- "ABC" : String
+
+let
+  (a,b,c,(x,y,z)) = myNestedTuple
+in
+  a ++ b ++ c ++ x ++ y ++ z
+-- "ABCXYZ" : String""" "js"
     , Item "article 2" "author 2" "descr" [ "Maybe", "Result" ] "elm" "js"
     , Item "article 3" "author 3" "descr" [ "Maybe", "Result" ] "elm" "js"
     , Item "article 4" "author 4" "descr" [ "Maybe", "Result" ] "elm" "js"
