@@ -1,0 +1,13 @@
+[
+    {
+        "title": "Destructuring Records/Objects",
+        "author": "rlking",
+        "description": "Getting the value from a record (elm) of object (js) in the argument declaration",
+        "tags": [
+            "destructuring",
+            "records"
+        ],
+        "elm": "Elm code",
+        "js": "JS Code"
+    }
+]

@@ -1,12 +1,12 @@
 {
-    "name": "howtoinelm",
-    "description": "howtoinelm",
+    "name": "howinelm",
+    "description": "howinelm",
     "version": "0.0.1",
     "license": "MIT",
     "author": "Ruben Lie King",
     "repository": {
         "type": "git",
-        "url": "https://github.com/rl-king/howtoinelm"
+        "url": "https://github.com/rl-king/howinelm"
     },
     "scripts": {
         "start": "webpack-dev-server --hot --inline",
@@ -40,5 +40,8 @@
         "webpack-dev-server": "^2.7.1",
         "webpack-merge": "^4.1.0",
         "webpack-notifier": "^1.5.0"
+    },
+    "dependencies": {
+        "highlight.js": "^9.12.0"
     }
 }

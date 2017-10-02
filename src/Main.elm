@@ -3,6 +3,9 @@ module Main exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick)
+import Http exposing (Error, get, send)
+import Json.Decode as D exposing (..)
+import Markdown exposing (..)
 import Navigation exposing (Location)
 import Route exposing (..)
 
@@ -19,22 +22,23 @@ main =
 
 type alias Model =
     { route : Route
-    , articles : List Item
+    , articles : List Article
     }
 
 
 init : Navigation.Location -> ( Model, Cmd Msg )
 init location =
     { route = parseLocation location
-    , articles = data
+    , articles = []
     }
-        ! []
+        ! [ getArticles ]
 
 
 type Msg
     = NoOp
     | NewUrl String
     | UrlChange Location
+    | GotArticles (Result Http.Error (List Article))
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -53,6 +57,12 @@ update msg model =
             in
             { model | route = route } ! []
 
+        GotArticles (Ok articles) ->
+            { model | articles = articles } ! []
+
+        GotArticles (Err _) ->
+            model ! []
+
 
 view : Model -> Html Msg
 view model =
@@ -66,7 +76,10 @@ view model =
                     articleItem (selectedArticle model.articles title)
     in
     main_ []
-        [ header [ class "main-header" ] [ h1 [] [ text "How to in elm" ] ]
+        [ header [ class "main-header" ]
+            [ h1 [] [ text "How in elm" ]
+            , h5 [] [ text "Elm equivalent of Javascript code" ]
+            ]
         , selectedView
         ]
 
@@ -76,7 +89,7 @@ titleToSlug title =
     String.join "" (String.words title)
 
 
-selectedArticle : List Item -> String -> Item
+selectedArticle : List Article -> String -> Article
 selectedArticle articleList title =
     List.filter ((==) title << titleToSlug << .title) articleList
         |> List.head
@@ -88,7 +101,7 @@ articleList model =
     section [] (List.map articleItem model.articles)
 
 
-articleItem : Item -> Html Msg
+articleItem : Article -> Html Msg
 articleItem item =
     article []
         [ header []
@@ -101,11 +114,11 @@ articleItem item =
         , div [ class "code-blocks" ]
             [ div [ class "code-block" ]
                 [ h5 [] [ text "JavaScript" ]
-                , pre [] [ text item.js ]
+                , Markdown.toHtml [] item.js
                 ]
             , div [ class "code-block" ]
                 [ h5 [] [ text "Elm" ]
-                , pre [] [ text item.elm ]
+                , Markdown.toHtml [] item.elm
                 ]
             ]
         , footer []
@@ -114,7 +127,7 @@ articleItem item =
         ]
 
 
-type alias Item =
+type alias Article =
     { title : String
     , author : String
     , description : String
@@ -125,25 +138,44 @@ type alias Item =
 
 
 data =
-    [ Item "article 1" "author 1" "descr" [ "Maybe", "Result" ] """myTuple = ("A", "B", "C")
-myNestedTuple = ("A", "B", "C", ("X", "Y", "Z"))
-
-let
-  (a,b,c) = myTuple
-in
-  a ++ b ++ c
--- "ABC" : String
-
-let
-  (a,b,c,(x,y,z)) = myNestedTuple
-in
-  a ++ b ++ c ++ x ++ y ++ z
--- "ABCXYZ" : String""" "js"
-    , Item "article 2" "author 2" "descr" [ "Maybe", "Result" ] "elm" "js"
-    , Item "article 3" "author 3" "descr" [ "Maybe", "Result" ] "elm" "js"
-    , Item "article 4" "author 4" "descr" [ "Maybe", "Result" ] "elm" "js"
+    [ Article "article 1"
+        "author 1"
+        "descr"
+        [ "Maybe", "Result" ]
+        "# 1"
+        "js"
+    , Article "article 2" "author 2" "descr" [ "Maybe", "Result" ] "elm" "js"
+    , Article "article 3" "author 3" "descr" [ "Maybe", "Result" ] "elm" "js"
+    , Article "article 4" "author 4" "descr" [ "Maybe", "Result" ] "elm" "js"
     ]
 
 
 emptyArticle =
-    Item "empty" "_" "_" [ "_" ] "_" "_"
+    Article "empty" "_" "_" [ "_" ] "_" "_"
+
+
+
+-- HTTP
+
+
+getArticles : Cmd Msg
+getArticles =
+    Http.get "./data/articles.json" decodeArticleList
+        |> Http.send GotArticles
+
+
+decodeArticleList : D.Decoder (List Article)
+decodeArticleList =
+    D.list decodeArticle
+
+
+decodeArticle : D.Decoder Article
+decodeArticle =
+    D.map6
+        Article
+        (D.field "title" D.string)
+        (D.field "author" D.string)
+        (D.field "description" D.string)
+        (D.field "tags" (D.list D.string))
+        (D.field "elm" D.string)
+        (D.field "js" D.string)
