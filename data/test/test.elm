@@ -1,5 +1,8 @@
-module Main exposing (..)
+if key == 40 then
+    n + 1
 
+else if key == 38 then
+    n - 1
 
-firstValue list =
-    List.head list
+else
+    n

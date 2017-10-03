@@ -113,11 +113,11 @@ articleItem item =
         , div [ class "code-blocks" ]
             [ div [ class "code-block" ]
                 [ h5 [] [ text "JavaScript" ]
-                , jsBlock item.js
+                , codeBlock item.js javascript
                 ]
             , div [ class "code-block" ]
                 [ h5 [] [ text "Elm" ]
-                , elmBlock item.elm
+                , codeBlock item.elm elm
                 ]
             ]
         , footer []
@@ -127,25 +127,14 @@ articleItem item =
         ]
 
 
-elmBlock : String -> Html Msg
-elmBlock elmCode =
+codeBlock : String -> (String -> Result e SyntaxHighlight.HCode) -> Html Msg
+codeBlock sampleCode syntax =
     div []
         [ useTheme gitHub
-        , elm elmCode
+        , syntax sampleCode
             |> Result.map (toBlockHtml (Just 1))
             |> Result.withDefault
-                (pre [] [ code [] [ text elmCode ] ])
-        ]
-
-
-jsBlock : String -> Html Msg
-jsBlock jsCode =
-    div []
-        [ useTheme gitHub
-        , javascript jsCode
-            |> Result.map (toBlockHtml (Just 1))
-            |> Result.withDefault
-                (pre [] [ code [] [ text jsCode ] ])
+                (pre [] [ code [] [ text sampleCode ] ])
         ]
 
 
