@@ -1,18 +1,33 @@
-/*------------------------------------*\
-    PREVIEW
-\*------------------------------------*/
+.main-header {
+    padding: 1rem 1rem 0;
+
+    @include breakpoint($small) {
+        padding: 2rem 2rem 0;
+    }
+}
+
+section {
+    padding: 1rem;
+
+    @include breakpoint($small) {
+        padding: 2rem;
+    }
+}
 
 article {
-    background-color: $wht2;
-    margin: 0 2rem 3rem;
+    background-color: $wht4;
 
     header {
-        border-bottom: 1px solid $wht4;
+        border-bottom: 1px solid $gr3;
     }
 
     header, footer {
-        padding: 1.5rem 1.5rem .5rem;
+        padding: 1.5rem;
         margin-bottom: 1.5rem;
+
+        @include breakpoint($small) {
+            padding: 2.5rem;
+        }
     }
 
     ul {
@@ -30,8 +45,10 @@ article {
 }
 
 .code-blocks {
+    padding: .5rem;
 
     @include breakpoint($small) {
+        padding: 1rem;
         display: flex;
     }
 }

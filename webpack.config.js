@@ -129,9 +129,6 @@ if (isProd === true) {
                 cssProcessorOptions: { discardComments: { removeAll: true } },
                 canPrint: true
             }),
-            new CopyWebpackPlugin([
-                { from: 'src/data', to: 'data' }
-            ]),
             new webpack.optimize.UglifyJsPlugin({
                 minimize: true,
                 mangle: true,
