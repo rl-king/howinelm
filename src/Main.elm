@@ -5,6 +5,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (onClick)
 import Http exposing (Error, get, send)
 import Json.Decode as D exposing (..)
+import Markdown exposing (toHtml)
 import Navigation exposing (Location)
 import Route exposing (..)
 import SyntaxHighlight exposing (elm, gitHub, javascript, toBlockHtml, useTheme)
@@ -108,7 +109,7 @@ articleItem item =
             [ h2
                 [ onClick (NewUrl ("/article/" ++ titleToSlug item.title)) ]
                 [ text item.title ]
-            , p [] [ text item.description ]
+            , Markdown.toHtml [] item.readme
             ]
         , div [ class "code-blocks" ]
             [ div [ class "code-block" ]
@@ -141,7 +142,7 @@ codeBlock sampleCode syntax =
 type alias Article =
     { title : String
     , author : String
-    , description : String
+    , readme : String
     , types : List String
     , elm : String
     , js : String
@@ -173,7 +174,7 @@ decodeArticle =
         Article
         (D.field "title" D.string)
         (D.field "author" D.string)
-        (D.field "description" D.string)
+        (D.field "readme" D.string)
         (D.field "tags" (D.list D.string))
         (D.field "elm" D.string)
         (D.field "js" D.string)

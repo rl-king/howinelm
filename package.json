@@ -10,6 +10,7 @@
     },
     "scripts": {
         "start": "webpack-dev-server --hot --inline",
+        "json": "node ./generatejson.js",
         "build": "webpack"
     },
     "devDependencies": {

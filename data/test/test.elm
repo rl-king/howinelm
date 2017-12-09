@@ -1,8 +1,5 @@
-if key == 40 then
-    n + 1
+list : List Int
+list =
+    [1, 2, 3]
 
-else if key == 38 then
-    n - 1
-
-else
-    n
+List.head list

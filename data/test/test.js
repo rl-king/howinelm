@@ -1,3 +1,3 @@
-function test() {
-    return ""
-}
+const array = [1, 2, 3];
+
+array[0];
